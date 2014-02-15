@@ -9,7 +9,7 @@ visit '/'
     fill_in 'Your name', with: 'TextMate 2'
     fill_in 'Tell me about yourself', with: 'A text-editor for OS X'
     click_button 'Create Project'
-    expect(page).to have_content('Project has been saved.')
+    expect(page).to have_content('Project has been created.')
   end
 
   scenario "can not create a project without a name" do
