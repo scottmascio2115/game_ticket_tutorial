@@ -9,4 +9,7 @@ GameTicket::Application.routes.draw do
   end
 
   resources :users
+  get "/signin", to: "sessions#new"
+  post "/signin", to: "sessions#create"
 end
+
