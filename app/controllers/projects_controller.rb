@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-
+before_action :authorize_admin!, except: [:index, :show]
 before_action :set_project, only: [:show,:edit,:update,:destroy]
 
 def index
@@ -41,6 +41,13 @@ def update
   end
 end
 
+def destroy
+  @project.destroy
+  flash[:notice] = "Project has been deleted."
+
+  redirect_to @project
+end
+
 #strong params
 private
 
@@ -57,4 +64,18 @@ private
                       " for could not be found."
       redirect_to projects_path
   end
+
+  def authorize_admin!
+    require_signin!
+
+    unless current_user.admin?
+      flash[:alert] = "You must be an admin to do that."
+      redirect_to root_path
+    end
+  end
+
 end
+
+
+
+
